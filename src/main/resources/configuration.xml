@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transferLocations>
+    <transferType>
+        <location name="London">
+            <enabled>true</enabled>
+            <number>0208705040</number>
+            <weight>15</weight>
+        </location>
+        <location name="Shipley">
+            <enabled>false</enabled>
+            <number>01274821111</number>
+            <weight>5</weight>
+        </location>
+        <location name="Manchester">
+            <enabled>true</enabled>
+            <number>01612821950</number>
+            <weight>6</weight>
+        </location>
+        <location name="Leeds">
+            <enabled>true</enabled>
+            <number>01132324455</number>
+            <weight>4</weight>
+        </location>
+        <name>lost and stolen</name>
+    </transferType>
+    <transferType>
+        <location name="Leeds">
+            <enabled>true</enabled>
+            <number>01132321123</number>
+            <weight>80</weight>
+        </location>
+        <location name="Brentwood">
+            <enabled>true</enabled>
+            <number>01277706060</number>
+            <weight>20</weight>
+        </location>
+        <name>fraud</name>
+    </transferType>
+</transferLocations>

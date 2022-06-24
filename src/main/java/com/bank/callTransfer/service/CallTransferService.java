@@ -19,6 +19,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.bank.callTransfer.dao.entity.CallDistribution;
@@ -112,10 +113,10 @@ public class CallTransferService {
 		return selectedLocation;
 	}
 	
-	public Location distributeCalls(String reason) throws JAXBException, ReasonNotFoundException
+	public Location distributeCalls(String reason) throws JAXBException, ReasonNotFoundException, IOException
 	{
 		log.info("Step 1: Reads the config xml file");
-		TransferLocation transferLocation = readConfigXml(new File(CONFIG_FILE));
+		TransferLocation transferLocation = readConfigXml(new ClassPathResource(CONFIG_FILE).getFile());
 		
 		log.info("Step 2: Gets the location for a given reason which are enabled");
 		TransferType transferType = transferLocation.getTransferType().stream()
@@ -150,13 +151,13 @@ public class CallTransferService {
 		return selectedLocation;
 	}
 	
-	public TransferLocation updateContactCenter(LocationName location) throws JAXBException, IOException, LocationNotFoundException
+	public LocationName updateContactCenter(LocationName location) throws JAXBException, IOException, LocationNotFoundException
 	{
 		Location selectedlocation = null;
 		boolean updatedFlag = false;
 		
 		log.info("Reads xml and unmarshalling.");
-		TransferLocation transferLocation = readConfigXml(new File(CONFIG_FILE));
+		TransferLocation transferLocation = readConfigXml(new ClassPathResource(CONFIG_FILE).getFile());
 		
 		log.info("Iterate thru reasons and find location");
 		for(TransferType transferType : transferLocation.getTransferType()){
@@ -184,15 +185,15 @@ public class CallTransferService {
 			throw new LocationNotFoundException();
 		
 		log.info("Writes back to config xml file");
-		writeToConfigXml(new File("configuration.xml"), transferLocation);
+		writeToConfigXml(new ClassPathResource(CONFIG_FILE).getFile(), transferLocation);
 		
-		return transferLocation;
+		return location;
 	}
 	
-	public TransferLocation fetchCurrentConfiguration() throws JAXBException
+	public TransferLocation fetchCurrentConfiguration() throws JAXBException, IOException
 	{
 		log.info("UnMarshelling XML File");
-		TransferLocation transferLocation = readConfigXml(new File(CONFIG_FILE));
+		TransferLocation transferLocation = readConfigXml(new ClassPathResource(CONFIG_FILE).getFile());
 		return transferLocation;
 	}
 }

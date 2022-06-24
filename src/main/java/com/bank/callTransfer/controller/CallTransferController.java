@@ -100,15 +100,15 @@ public class CallTransferController {
 		Status status = new Status();
 		result.setStatus(status);
 		
-		TransferLocation transferLocation = null;
+		LocationName locationName = null;
 		
 		try {
-			transferLocation = callTransferService.updateContactCenter(location);
+			locationName = callTransferService.updateContactCenter(location);
 			
 			status.setCode(HttpStatus.OK.value());
 			status.setMessage(SUCCESS);
 			
-			result.setData(transferLocation);
+			result.setData(locationName);
 			
 			return ResponseEntity.ok(result);
 			
@@ -160,10 +160,11 @@ public class CallTransferController {
 	 * This API displays a view of the current live configuration.
 	 * @return current xml configuration 
 	 * @throws GenericException 
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/viewcurrentconfiguration", method = RequestMethod.GET, produces = { "application/xml", "text/xml" })
 	@ResponseBody
-	public ResponseEntity<?> viewCurrentConfiguration() throws GenericException
+	public ResponseEntity<?> viewCurrentConfiguration() throws GenericException, IOException
 	{
 		log.info("viewcurrentconfiguration Api Called.....");
 		
